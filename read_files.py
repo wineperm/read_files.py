@@ -12,7 +12,7 @@ def read_files_recursively(root_dir, output_file, exclude_files, exclude_dirs):
                     relative_path = os.path.relpath(file_path, root_dir)
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as in_file:
                         content = in_file.read()
-                        out_file.write(f"{relative_path}\n")
+                        out_file.write(f"#{relative_path}\n")
                         out_file.write(content)
                         out_file.write("\n\n")
 
@@ -21,10 +21,10 @@ if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Путь к выходному файлу, в который будет записано содержимое всех файлов
-    output_file = os.path.join(current_dir, 'output.txt')
+    output_file = os.path.join(current_dir, 'info.tai')
 
     # Множество имен файлов, которые нужно исключить из обхода
-    exclude_files = {'output.txt', 'read_files.py', 'generate_project_structure.py'}
+    exclude_files = {'info.tai', 'read_files.py', 'generate_project_structure.py'}
 
     # Множество имен директорий, которые нужно исключить из обхода
     exclude_dirs = {'.git'}
