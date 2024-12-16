@@ -27,7 +27,7 @@ if __name__ == "__main__":
     exclude_files = {'info.tai', 'read_files.py', 'generate_project_structure.py', 'create_structure.py'}
 
     # Множество имен директорий, которые нужно исключить из обхода
-    exclude_dirs = {'.git'}
+    exclude_dirs = {'.git', '.github'}
 
     # Вызов функции для рекурсивного чтения файлов
     read_files_recursively(current_dir, output_file, exclude_files, exclude_dirs)
