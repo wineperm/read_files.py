@@ -1,13 +1,13 @@
 import os
 
-def read_files_recursively(root_dir, output_file, exclude_files, exclude_dirs):
+def read_files_recursively(root_dir, output_file, exclude_files, exclude_dirs, image_extensions):
     with open(output_file, 'w', encoding='utf-8') as out_file:
         for dirpath, dirnames, filenames in os.walk(root_dir):
             # Исключаем директории из обхода
             dirnames[:] = [d for d in dirnames if d not in exclude_dirs]
             for filename in filenames:
                 file_path = os.path.join(dirpath, filename)
-                if filename not in exclude_files:
+                if filename not in exclude_files and not any(filename.lower().endswith(ext) for ext in image_extensions):
                     # Относительный путь к файлу
                     relative_path = os.path.relpath(file_path, root_dir)
                     with open(file_path, 'r', encoding='utf-8', errors='ignore') as in_file:
@@ -29,8 +29,11 @@ if __name__ == "__main__":
     # Множество имен директорий, которые нужно исключить из обхода
     exclude_dirs = {'.git', '.github'}
 
+    # Список расширений файлов изображений, которые нужно исключить
+    image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.svg'}
+
     # Вызов функции для рекурсивного чтения файлов
-    read_files_recursively(current_dir, output_file, exclude_files, exclude_dirs)
+    read_files_recursively(current_dir, output_file, exclude_files, exclude_dirs, image_extensions)
 
     # Сообщение о завершении работы скрипта
     print(f"Содержимое всех файлов записано в {output_file}")
